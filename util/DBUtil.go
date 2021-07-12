@@ -1,9 +1,9 @@
 package util
 
 import (
+	"GoUtil_ws/model"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
-	"github.com/wslio/GoUtil_ws/model"
 	"strconv"
 )
 
