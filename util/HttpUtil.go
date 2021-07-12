@@ -13,3 +13,10 @@ func HttpGet(uu string, params url.Values) string {
 	tmp := HandleResp(resp)
 	return tmp
 }
+
+func HttpPost(uu string, data string) string {
+	resp, err := http.PostForm(uu, url.Values{"jsonrequest": {data}})
+	HandleError(err, uu + " POST请求失败")
+	tmp := HandleResp(resp)
+	return tmp
+}

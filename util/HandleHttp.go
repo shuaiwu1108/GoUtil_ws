@@ -4,14 +4,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"os"
 )
 
 func HandleError(err error, message string) {
 	if err != nil {
 		fmt.Println(message, err)
-		Pause()
-		os.Exit(500)
+		//Pause()
+		//os.Exit(500)
 	}
 }
 
