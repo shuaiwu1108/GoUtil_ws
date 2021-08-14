@@ -1,4 +1,4 @@
-module GoUtil_ws
+module github.com/wslio/GoUtil_ws
 
 go 1.17
 
