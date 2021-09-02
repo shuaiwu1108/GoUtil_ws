@@ -1,10 +1,10 @@
 package util
 
 import (
-	"GoUtil_ws/model"
 	"database/sql"
 	"fmt"
 	_ "github.com/godror/godror"
+	"github.com/wslio/GoUtil_ws/model"
 )
 
 var oracledb *sql.DB

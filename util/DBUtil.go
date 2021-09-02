@@ -1,10 +1,10 @@
 package util
 
 import (
-	"GoUtil_ws/model"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
+	"github.com/wslio/GoUtil_ws/model"
 	"io/ioutil"
 	"path/filepath"
 	"regexp"

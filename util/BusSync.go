@@ -1,11 +1,11 @@
 package util
 
 import (
-	"GoUtil_ws/model"
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"github.com/wslio/GoUtil_ws/model"
 )
 
 func BusSyncSql(code, vpn, port, sql string) string {
