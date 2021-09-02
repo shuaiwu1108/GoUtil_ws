@@ -1,6 +1,8 @@
 package util
 
 import (
+	"bufio"
+	"container/list"
 	"fmt"
 	"gopkg.in/ini.v1"
 	"io"
@@ -63,4 +65,25 @@ func WriteByteArray(filename string, tmp string) {
 	n, err1 := io.WriteString(f, tmp) //写入文件(字符串)
 	HandleError(err1, "")
 	fmt.Printf("写入 %d 个字节 \n", n)
+}
+
+func ReadLineFile(fileName string) list.List{
+	res := list.New()
+	fi, err := os.Open(fileName)
+	if err != nil {
+		fmt.Printf("Error: %s\n", err)
+		return *res
+	}
+	defer fi.Close()
+
+	br := bufio.NewReader(fi)
+	for {
+		a, _, c := br.ReadLine()
+		if c == io.EOF {
+			break
+		}
+		res.PushBack(string(a))
+	}
+
+	return *res
 }
