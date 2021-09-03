@@ -3,6 +3,8 @@ package util
 import (
 	"net/http"
 	"net/url"
+	"strings"
+	"time"
 )
 
 func HttpGet(uu string, params url.Values) string {
@@ -15,7 +17,9 @@ func HttpGet(uu string, params url.Values) string {
 }
 
 func HttpPost(uu string, data string) string {
-	resp, err := http.PostForm(uu, url.Values{"jsonrequest": {data}})
+	c := http.Client{}
+	c.Timeout = 15 * time.Second
+	resp, err := c.Post(uu, "application/x-www-form-urlencoded", strings.NewReader(url.Values{"jsonrequest": {data}}.Encode()))
 	HandleError(err, uu + " POST请求失败", false)
 	tmp := HandleResp(resp)
 	return tmp
