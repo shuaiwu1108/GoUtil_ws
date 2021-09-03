@@ -18,7 +18,7 @@ func BusSyncSql(code, vpn, port, sql string) string {
 	h.Write([]byte(pub.Askorgcode+req.Sql+req.Dbname+req.Parameter))
 	req.Publicrequest.Signmsg = hex.EncodeToString(h.Sum(nil))
 	reqJson, err := json.Marshal(req)
-	HandleError(err, "请求参数Json异常!")
+	HandleError(err, "请求参数Json异常!", false)
 	res := HttpPost("http://"+vpn+":"+port+"/integratedquery", string(reqJson))
 	fmt.Println(res)
 	return res

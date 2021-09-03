@@ -18,14 +18,14 @@ var (
 
 func DbInit(dbInfo model.DBInfo) {
 	database, err := sqlx.Open("mysql", dbInfo.Name+":"+dbInfo.Pass+"@tcp("+dbInfo.Url+":"+strconv.Itoa(dbInfo.Port)+")/"+dbInfo.DbName+"?charset=utf8&parseTime=true")
-	HandleError(err, "open mysql failed, ")
+	HandleError(err, "open mysql failed, ", true)
 	db = database
 	fmt.Println("Mysql 初始化完毕！", dbInfo.Url)
 }
 
 func QueryOne(sqlStr string, args ...interface{}) (map[string]string, error) {
 	rows, err := db.Query(sqlStr, args...)
-	HandleError(err, "[SQL 查询出错]")
+	HandleError(err, "[SQL 查询出错]", true)
 	defer rows.Close()
 	cols, _ := rows.Columns()
 	values := make([][]byte, len(cols))
@@ -36,7 +36,7 @@ func QueryOne(sqlStr string, args ...interface{}) (map[string]string, error) {
 	rows.Next()
 	row := make(map[string]string)
 	err = rows.Scan(scans...)
-	HandleError(err, "[SQL查询，结果解析出错]")
+	HandleError(err, "[SQL查询，结果解析出错]", true)
 	for k, v := range values{
 		key := cols[k]
 		row[key] = string(v)
@@ -46,7 +46,7 @@ func QueryOne(sqlStr string, args ...interface{}) (map[string]string, error) {
 
 func QueryAll(sqlStr string, args ...interface{}) ([]map[string]string, error) {
 	rows, err := db.Query(sqlStr, args...)
-	HandleError(err, "[SQL 查询出错]")
+	HandleError(err, "[SQL 查询出错]", true)
 	defer rows.Close()
 	cols, _ := rows.Columns()
 	values := make([][]byte, len(cols))
@@ -57,7 +57,7 @@ func QueryAll(sqlStr string, args ...interface{}) ([]map[string]string, error) {
 	results := make([]map[string]string, 0, 10)
 	for rows.Next() {
 		err := rows.Scan(scans...)
-		HandleError(err, "[SQL 查询结果解析出错]")
+		HandleError(err, "[SQL 查询结果解析出错]", true)
 		row := make(map[string]string, 10)
 		for k, v := range values {
 			key := cols[k]
@@ -70,7 +70,7 @@ func QueryAll(sqlStr string, args ...interface{}) ([]map[string]string, error) {
 
 func ExecSql(sqlStr string, args ...interface{}){
 	rs,err := db.Exec(sqlStr, args...)
-	HandleError(err, "MySql执行出错！")
+	HandleError(err, "MySql执行出错！", true)
 	num, _ := rs.RowsAffected()
 	id,_ := rs.LastInsertId()
 	fmt.Println("影响行数：", num, " id：", id)
@@ -78,7 +78,7 @@ func ExecSql(sqlStr string, args ...interface{}){
 
 func PrepareSql(sqlString string){
 	rs,err := db.Prepare(sqlString)
-	HandleError(err, "MySql执行出错！")
+	HandleError(err, "MySql执行出错！", true)
 	rs.Exec()
 }
 
@@ -87,14 +87,14 @@ func ReadSqlExec(){
 	fmt.Printf("Sql执行目录：%s\n", dir)
 
 	fileInfoList, err := ioutil.ReadDir(dir)
-	HandleError(err, "Sql目录读取失败！")
+	HandleError(err, "Sql目录读取失败！", true)
 
 	reg := regexp.MustCompile(`{.*}`)
 
 	for i := range fileInfoList{
 		fmt.Printf("Sql文件名：%s\n", fileInfoList[i].Name())
 		bytes, err := ioutil.ReadFile(filepath.Join(dir, fileInfoList[i].Name()))
-		HandleError(err, fileInfoList[i].Name()+" 文件读取失败！")
+		HandleError(err, fileInfoList[i].Name()+" 文件读取失败！", true)
 		allSql := string(bytes)
 		sqlArr := strings.Split(allSql, "@repeat")
 		for i := range sqlArr{
@@ -109,7 +109,7 @@ func ReadSqlExec(){
 				ExecSql(tmpSql)
 			}else{
 				tmpRes, err := QueryOne(result[0][1:len(result[0])-1])
-				HandleError(err, "条件Sql执行失败！")
+				HandleError(err, "条件Sql执行失败！", true)
 				coun := tmpRes["count(1)"]
 				fmt.Println("条件sql结果：", coun, "跳过执行")
 				if("1" == coun){

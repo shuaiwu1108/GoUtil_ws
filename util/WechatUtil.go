@@ -13,7 +13,7 @@ func getToken(appid string, appsecret string) string {
 	tmp := HttpGet("https://api.weixin.qq.com/cgi-bin/token", params)
 	var f interface{}
 	err := json.Unmarshal([]byte(tmp), &f)
-	HandleError(err, "token json analysis fail")
+	HandleError(err, "token json analysis fail", true)
 	m := f.(map[string]interface{})
 	tokenStr := m["access_token"]
 	return tokenStr.(string)

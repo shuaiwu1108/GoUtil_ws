@@ -17,7 +17,7 @@ var (
 func GetIniInt(sectionName string, key string) int {
 	tempVal := GetIniVal(sectionName, key)
 	value, e := strconv.Atoi(tempVal)
-	HandleError(e, "string convert string fail, key:"+key)
+	HandleError(e, "string convert string fail, key:"+key, true)
 	return value
 }
 
@@ -33,13 +33,13 @@ func GetIniVal(sectionName string, key string) string {
 
 func GetSection(sectionName string) *ini.Section {
 	section, e := iniFile.GetSection(sectionName)
-	HandleError(e, "未找到配置信息")
+	HandleError(e, "未找到配置信息", true)
 	return section
 }
 
 func ReadIniInit(fileName string) {
 	file, e := ini.Load(fileName)
-	HandleError(e, "conf.ini配置文件解析失败")
+	HandleError(e, "conf.ini配置文件解析失败", true)
 	iniFile = file
 }
 
@@ -61,9 +61,9 @@ func WriteByteArray(filename string, tmp string) {
 		f, err1 = os.Create(filename) //创建文件
 		fmt.Println("文件不存在")
 	}
-	HandleError(err1, "")
+	HandleError(err1, "", true)
 	n, err1 := io.WriteString(f, tmp) //写入文件(字符串)
-	HandleError(err1, "")
+	HandleError(err1, "", true)
 	fmt.Printf("写入 %d 个字节 \n", n)
 }
 

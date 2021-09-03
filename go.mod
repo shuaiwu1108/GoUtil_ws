@@ -9,9 +9,7 @@ require (
 	gopkg.in/ini.v1 v1.62.0
 )
 
-replace (
-	github.com/wslio/GoUtil_ws => "../GoUtil_ws"
-)
+replace github.com/wslio/GoUtil_ws => ../GoUtil_ws
 
 require (
 	github.com/go-logfmt/logfmt v0.5.0 // indirect
