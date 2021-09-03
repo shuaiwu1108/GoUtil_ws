@@ -71,8 +71,7 @@ func ReadLineFile(fileName string) list.List{
 	res := list.New()
 	fi, err := os.Open(fileName)
 	if err != nil {
-		fmt.Printf("Error: %s\n", err)
-		return *res
+		HandleError(err, fileName + "初始化失败", true)
 	}
 	defer fi.Close()
 
