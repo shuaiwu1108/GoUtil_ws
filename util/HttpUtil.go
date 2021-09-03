@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -20,7 +21,10 @@ func HttpPost(uu string, data string) string {
 	c := http.Client{}
 	c.Timeout = 15 * time.Second
 	resp, err := c.Post(uu, "application/x-www-form-urlencoded", strings.NewReader(url.Values{"jsonrequest": {data}}.Encode()))
-	HandleError(err, uu + " POST请求失败", false)
+	if err != nil{
+		fmt.Println(uu, data, "请求失败", err)
+		return ""
+	}
 	tmp := HandleResp(resp)
 	return tmp
 }
