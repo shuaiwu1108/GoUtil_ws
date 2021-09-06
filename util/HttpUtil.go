@@ -23,7 +23,7 @@ func HttpPost(uu string, data string) string {
 	resp, err := c.Post(uu, "application/x-www-form-urlencoded", strings.NewReader(url.Values{"jsonrequest": {data}}.Encode()))
 	if err != nil{
 		fmt.Println(uu, data, "请求失败", err)
-		return ""
+		return "{\"publicresponse\":{\"resultcode\":\"4444\",\"resultmsg\":\""+err.Error()+"\",\"returntime\":\"\",\"version\":\"1.0.0\",\"signmsg\":\"\"},\"result\":[]}"
 	}
 	tmp := HandleResp(resp)
 	return tmp
