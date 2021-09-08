@@ -4,7 +4,6 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
 	"github.com/wslio/GoUtil_ws/model"
 )
 
@@ -20,6 +19,6 @@ func BusSyncSql(code, vpn, port, sql string) string {
 	reqJson, err := json.Marshal(req)
 	HandleError(err, "请求参数Json异常!", false)
 	res := HttpPost("http://"+vpn+":"+port+"/integratedquery", string(reqJson))
-	fmt.Println(res)
+	//fmt.Println(res)
 	return res
 }
