@@ -9,6 +9,4 @@ require (
 	gopkg.in/ini.v1 v1.62.0
 )
 
-replace github.com/shuaiwu1108/GoUtil_ws => ../GoUtil_ws
-
 require github.com/smartystreets/goconvey v1.6.4 // indirect
