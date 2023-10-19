@@ -4,7 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
-	"github.com/wslio/GoUtil_ws/model"
+	"github.com/shuaiwu1108/GoUtil_ws/model"
 )
 
 func BusSyncSql(code, vpn, port, sql string) string {
@@ -14,7 +14,7 @@ func BusSyncSql(code, vpn, port, sql string) string {
 	req.Sql = sql
 	req.Parameter = "{}"
 	h := md5.New()
-	h.Write([]byte(pub.Askorgcode+req.Sql+req.Dbname+req.Parameter))
+	h.Write([]byte(pub.Askorgcode + req.Sql + req.Dbname + req.Parameter))
 	req.Publicrequest.Signmsg = hex.EncodeToString(h.Sum(nil))
 	reqJson, err := json.Marshal(req)
 	HandleError(err, "请求参数Json异常!", false)

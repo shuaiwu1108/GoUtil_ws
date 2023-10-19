@@ -1,17 +1,14 @@
-module github.com/wslio/GoUtil_ws
+module github.com/shuaiwu1108/GoUtil_ws
 
 go 1.17
 
 require (
 	github.com/go-sql-driver/mysql v1.6.0
-	github.com/godror/godror v0.25.3
 	github.com/jmoiron/sqlx v1.3.4
+	github.com/sijms/go-ora/v2 v2.7.19
 	gopkg.in/ini.v1 v1.62.0
 )
 
-replace github.com/wslio/GoUtil_ws => ../GoUtil_ws
+replace github.com/shuaiwu1108/GoUtil_ws => ../GoUtil_ws
 
-require (
-	github.com/go-logfmt/logfmt v0.5.0 // indirect
-	github.com/smartystreets/goconvey v1.6.4 // indirect
-)
+require github.com/smartystreets/goconvey v1.6.4 // indirect
